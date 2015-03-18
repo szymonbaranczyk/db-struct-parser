@@ -6,5 +6,6 @@ public class Hello {
     {
         System.out.println("Czesc, jeste nowym parsere");
         System.out.println("Czesc, jeste nowym super parserem :sparkles:");
+        System.out.println("Czesc, jestem raperem");
     }
 }
