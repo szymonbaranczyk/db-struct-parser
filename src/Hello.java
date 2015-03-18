@@ -5,6 +5,6 @@ public class Hello {
     public static void main(String[]args)
     {
         System.out.println("Czesc, jeste nowym parsere");
-        System.out.println("Czesc, jeste nowym super parsere :sparkles:");
+        System.out.println("Czesc, jeste nowym super parserem :sparkles:");
     }
 }
