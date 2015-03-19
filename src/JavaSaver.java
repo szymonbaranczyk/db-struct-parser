@@ -7,6 +7,6 @@ import java.util.List;
 public class JavaSaver {
     static void save(File folder, List<Table> tables)
     {
-        
+
     }
 }
