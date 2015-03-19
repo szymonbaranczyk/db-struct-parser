@@ -9,5 +9,6 @@ public class Hello {
         System.out.println("Czesc, jeste raperem");
         System.out.println(":)");
         System.out.println("added in branch");
+        System.out.println("added new better branch! xoxo");
     }
 }
