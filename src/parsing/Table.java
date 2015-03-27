@@ -3,6 +3,7 @@ package parsing;
 import parsing.Column;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,6 +13,8 @@ public class Table
 {
     public String name;
     public List<Column> columns;
+
+
     public Table(String name)
     {
         this.name=name;
