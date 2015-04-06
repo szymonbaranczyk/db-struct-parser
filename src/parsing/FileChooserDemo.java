@@ -11,6 +11,7 @@ import javax.swing.filechooser.*;
 public class FileChooserDemo extends JPanel
         implements ActionListener {
     static private final String newline = "\n";
+    java.util.List<Table> tables=null;
     JButton openButton, saveButton;
     JTextArea log;
     JFileChooser fc;
@@ -58,14 +59,16 @@ public class FileChooserDemo extends JPanel
     }
 
     public void actionPerformed(ActionEvent e) {
-
         //Handle open button action.
         if (e.getSource() == openButton) {
             int returnVal = fc.showOpenDialog(FileChooserDemo.this);
-
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                //This is where a real application would open the file.
+                try {
+                    tables=DBParser.parse(file);
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
                 log.append("Opening: " + file.getName() + "." + newline);
             } else {
                 log.append("Open command cancelled by user." + newline);
@@ -82,7 +85,7 @@ public class FileChooserDemo extends JPanel
             int returnVal = fc.showSaveDialog(FileChooserDemo.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                //This is where a real application would save the file.
+                JavaSaver.save(file,tables);
                 log.append("Saving: " + file.getName() + "." + newline);
             } else {
                 log.append("Save command cancelled by user." + newline);
