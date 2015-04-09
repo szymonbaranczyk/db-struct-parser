@@ -56,6 +56,8 @@ public class FileChooserDemo extends JPanel
         //Add the buttons and the log to this panel.
         add(buttonPanel, BorderLayout.PAGE_START);
         add(logScrollPane, BorderLayout.CENTER);
+
+        saveButton.setVisible(false);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -70,8 +72,10 @@ public class FileChooserDemo extends JPanel
                     e1.printStackTrace();
                 }
                 log.append("Opening: " + file.getName() + "." + newline);
+                saveButton.setVisible(true);
             } else {
                 log.append("Open command cancelled by user." + newline);
+                saveButton.setVisible(false);
             }
             log.setCaretPosition(log.getDocument().getLength());
 
