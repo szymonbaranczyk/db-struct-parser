@@ -11,13 +11,14 @@ import java.util.List;
  */
 public class JavaSaver {
 
-    static private HashSet<String> set = new HashSet(5); //storage for all imports
-    static private File choosenFolder = null;
-    private static String toUpperCase(String s)
-    {
+    private HashSet<String> set = new HashSet(5); //storage for all imports
+    private File choosenFolder = null;
+
+    private String toUpperCase(String s) {
         return Character.toUpperCase(s.charAt(0)) + s.substring(1);
     }
-    private static String convertName(String n) {
+
+    private String convertName(String n) {
 
         while (n.contains("_")) // while because we want to delete all of them
         {
@@ -41,7 +42,7 @@ public class JavaSaver {
         return n;
     }
 
-    private static String convertType(String t) {
+    private String convertType(String t) {
         if (t.contains("bit(1)") || t.contains("bool"))
             return "boolean";
         if (t.contains("bigint"))
@@ -82,7 +83,7 @@ public class JavaSaver {
      * @param table
      * @return String containing text which we will save to file
      */
-    private static String createText(Table table) {    //folder is passed so that file can be created in case of enum
+    private String createText(Table table) {    //folder is passed so that file can be created in case of enum
         String className = convertName(table.name);
         className = className.substring(0, 1).toUpperCase() + className.substring(1);
 
@@ -109,37 +110,32 @@ public class JavaSaver {
     }
 
 
-    public static void save(File folder, List<Table> tables) {
+    public void save(File folder, List<Table> tables) throws IOException{
         BufferedWriter writer = null;
         choosenFolder = folder;
         for (Table elem : tables) {
-            try {
-                File file = new File(folder, toUpperCase(convertName(elem.name)) + ".java");
-                writer = new BufferedWriter(new FileWriter(file));
 
-                String temp = createText(elem);//only remembered, so we can first print all imports
+            File file = new File(folder, toUpperCase(convertName(elem.name)) + ".java");
+            writer = new BufferedWriter(new FileWriter(file));
 
-                Iterator iterator = set.iterator();
-                while (iterator.hasNext()) {
-                    writer.write(iterator.next().toString() + "\r\n");
-                }
-                writer.write("\r\n");
-                writer.write(temp);
+            String temp = createText(elem);//only remembered, so we can first print all imports
 
-                set.clear();
-            } catch (IOException e) {
-            } finally {
-                try {
-                    if (writer != null)
-                        writer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            Iterator iterator = set.iterator();
+            while (iterator.hasNext()) {
+                writer.write(iterator.next().toString() + "\r\n");
             }
+            writer.write("\r\n");
+            writer.write(temp);
+
+            set.clear();
         }
+
+        writer.close();
+
     }
 
-    private static void createEnumFile(String enumstring, String name) {
+
+    private void createEnumFile(String enumstring, String name) {
         File file = new File(choosenFolder, name + ".java");
         StringBuilder s = new StringBuilder();
         s.append("public enum ");
@@ -155,7 +151,7 @@ public class JavaSaver {
         }
         s.append("\r\n}");
         try {
-            BufferedWriter bf=new BufferedWriter(new FileWriter(file));
+            BufferedWriter bf = new BufferedWriter(new FileWriter(file));
             bf.write(s.toString());
             bf.close();
         } catch (IOException e) {
@@ -163,3 +159,4 @@ public class JavaSaver {
         }
     }
 }
+

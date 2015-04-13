@@ -18,9 +18,11 @@ public class DBParserTest
         File file = new File("./samples/sample_schema.sql");
         File file2 = new File("./samples");
         System.out.println(file.getAbsolutePath());
-        try {
-            List<Table> tables = DBParser.parse(file);
-            JavaSaver.save(file2, tables);
+        try{
+            DBParser dbp=new DBParser();
+            JavaSaver js=new JavaSaver();
+            List<Table> tables = dbp.parse(file);
+            js.save(file2, tables);
            /* for (Table t : tables) {
                 System.out.println(t.name);
                 for (Column c : t.columns) {

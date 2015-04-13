@@ -1,4 +1,5 @@
 package parsing;
+
 import javafx.scene.control.Tab;
 import parsing.Column;
 import parsing.Table;
@@ -15,29 +16,26 @@ import java.util.Scanner;
 public class DBParser {
 
     /**
-     *
      * @param line
-     * @return  substring between first and last "`" in the line (exclusive)
+     * @return substring between first and last "`" in the line (exclusive)
      */
-    private static String getName(String line)
-    {
-        return line.substring(line.indexOf("`")+1,line.lastIndexOf("`"));
+    private String getName(String line) {
+        return line.substring(line.indexOf("`") + 1, line.lastIndexOf("`"));
     }
 
     /**
-     *
      * @param line
      * @return substring between:
-     *      -point that is 2 chars after last "`" in the line
-     *      -first " " AFTER this point
+     * -point that is 2 chars after last "`" in the line
+     * -first " " AFTER this point
      */
-    private static String getType(String line)
-    {
-        return line.substring(line.lastIndexOf("`")+2,line.indexOf(" ",line.lastIndexOf("`")+2));
+    private String getType(String line) {
+        return line.substring(line.lastIndexOf("`") + 2, line.indexOf(" ", line.lastIndexOf("`") + 2));
     }
-    public static List<Table> parse(File file) throws FileNotFoundException {
-        final Scanner sc=new Scanner(file);
-        ArrayList<Table> tables=new ArrayList<Table>();                 //create returned table
+
+    public List<Table> parse(File file) throws FileNotFoundException {
+        final Scanner sc = new Scanner(file);
+        ArrayList<Table> tables = new ArrayList<Table>();                 //create returned table
         while (sc.hasNextLine()) {                                      //gets through whole file line by line
             String lineFromFile = sc.nextLine();                        //jump to next line
             if (lineFromFile.contains("CREATE TABLE")) {                //find CREATE TABLE statement

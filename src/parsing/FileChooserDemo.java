@@ -1,4 +1,5 @@
 package parsing;
+
 import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -11,7 +12,7 @@ import javax.swing.filechooser.*;
 public class FileChooserDemo extends JPanel
         implements ActionListener {
     static private final String newline = "\n";
-    java.util.List<Table> tables=null;
+    java.util.List<Table> tables = null;
     JButton openButton, saveButton;
     JTextArea log;
     JFileChooser fc;
@@ -21,8 +22,8 @@ public class FileChooserDemo extends JPanel
 
         //Create the log first, because the action listeners
         //need to refer to it.
-        log = new JTextArea(5,20);
-        log.setMargin(new Insets(5,5,5,5));
+        log = new JTextArea(5, 20);
+        log.setMargin(new Insets(5, 5, 5, 5));
         log.setEditable(false);
         JScrollPane logScrollPane = new JScrollPane(log);
 
@@ -34,7 +35,7 @@ public class FileChooserDemo extends JPanel
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
 
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("sql","sql");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("sql", "sql");
         fc.addChoosableFileFilter(filter);
 
 
@@ -67,8 +68,10 @@ public class FileChooserDemo extends JPanel
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 try {
-                    tables=DBParser.parse(file);
+                    DBParser dbp = new DBParser();
+                    tables = dbp.parse(file);
                 } catch (FileNotFoundException e1) {
+                    log.append("File was not found." + newline);
                     e1.printStackTrace();
                 }
                 log.append("Opening: " + file.getName() + "." + newline);
@@ -80,7 +83,6 @@ public class FileChooserDemo extends JPanel
             log.setCaretPosition(log.getDocument().getLength());
 
 
-
             //here maybe hello parser
 
 
@@ -89,7 +91,13 @@ public class FileChooserDemo extends JPanel
             int returnVal = fc.showSaveDialog(FileChooserDemo.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                JavaSaver.save(file,tables);
+                JavaSaver js = new JavaSaver();
+                try {
+                    js.save(file, tables);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                    log.append("File could not be found." + newline);
+                }
                 log.append("Saving: " + file.getName() + "." + newline);
             } else {
                 log.append("Save command cancelled by user." + newline);
