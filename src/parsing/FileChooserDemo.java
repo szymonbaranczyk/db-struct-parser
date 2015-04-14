@@ -59,6 +59,15 @@ public class FileChooserDemo extends JPanel
         add(logScrollPane, BorderLayout.CENTER);
 
         saveButton.setVisible(false);
+
+        JPanel imagePanel=new JPanel();
+        ImageIcon ii=new ImageIcon("./samples/giphy.gif");
+        JLabel imageLabel = new JLabel();
+        imageLabel.setIcon(ii);
+        imagePanel.add(imageLabel);
+
+        add(imagePanel, BorderLayout.AFTER_LAST_LINE);
+
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -107,15 +116,19 @@ public class FileChooserDemo extends JPanel
     }
 
 //    /** Returns an ImageIcon, or null if the path was invalid. */
-//    protected static ImageIcon createImageIcon(String path) {
-//        java.net.URL imgURL = FileChooserDemo.class.getResource(path);
-//        if (imgURL != null) {
-//            return new ImageIcon(imgURL);
-//        } else {
-//            System.err.println("Couldn't find file: " + path);
-//            return null;
-//        }
-//    }
+    /*protected static ImageIcon createImageIcon() {
+        String path="./samples/giphy.gif";
+        java.net.URL imgURL = FileChooserDemo.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+
+        ImageIcon ii=new ImageIcon("./samples/giphy.gif");
+        return ii;
+    }*/
 
 
     private static void createAndShowGUI() {
@@ -125,6 +138,8 @@ public class FileChooserDemo extends JPanel
 
         //Add content to the window.
         frame.add(new FileChooserDemo());
+
+
 
         //Display the window.
         frame.pack();
