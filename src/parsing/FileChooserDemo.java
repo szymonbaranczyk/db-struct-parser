@@ -83,7 +83,7 @@ public class FileChooserDemo extends JPanel
                     log.append("File was not found." + newline);
                     e1.printStackTrace();
                 }
-                log.append("Opening: " + file.getName() + "." + newline);
+                log.append("Opened: " + file.getName() + "." + newline);
                 saveButton.setVisible(true);
             } else {
                 log.append("Open command cancelled by user." + newline);
@@ -107,7 +107,7 @@ public class FileChooserDemo extends JPanel
                     e1.printStackTrace();
                     log.append("File could not be found." + newline);
                 }
-                log.append("Saving: " + file.getName() + "." + newline);
+                log.append("Saved: " + file.getName() + "." + newline);
             } else {
                 log.append("Save command cancelled by user." + newline);
             }

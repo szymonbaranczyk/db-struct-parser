@@ -128,9 +128,9 @@ public class JavaSaver {
             writer.write(temp);
 
             set.clear();
+            writer.close();
         }
 
-        writer.close();
 
     }
 
